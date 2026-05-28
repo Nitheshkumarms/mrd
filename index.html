@@ -2,434 +2,467 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Thermal Label Print</title>
+<title>Thermal Label Print</title>
 
-    <style>
+<style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, sans-serif;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
 
-        body{
+body{
 
-            background:#ececec;
+    background:#ececec;
 
-            min-height:100vh;
+    min-height:100vh;
 
-            display:flex;
+    display:flex;
 
-            justify-content:center;
+    justify-content:center;
 
-            align-items:center;
+    align-items:center;
 
-            flex-direction:column;
+    flex-direction:column;
 
-            gap:15px;
+    gap:15px;
 
-            padding:20px;
-        }
+    padding:20px;
+}
 
-        /* BUTTONS */
+/* BUTTONS */
 
-        .button-group{
+.button-group{
 
-            display:flex;
+    display:flex;
 
-            gap:10px;
+    gap:10px;
+}
 
-            flex-wrap:wrap;
-        }
+button{
 
-        button{
+    background:#111;
 
-            background:#111;
+    color:white;
 
-            color:white;
+    border:none;
 
-            border:none;
+    padding:10px 18px;
 
-            padding:10px 18px;
+    border-radius:8px;
 
-            border-radius:8px;
+    cursor:pointer;
 
-            cursor:pointer;
+    font-size:13px;
 
-            font-size:13px;
+    font-weight:600;
+}
 
-            font-weight:600;
-        }
+button:hover{
+    opacity:0.9;
+}
 
-        button:hover{
-            opacity:0.9;
-        }
+/* PRINT AREA */
 
-        /* EXACT LABEL SIZE */
+.print-area{
 
-        .print-area{
+    width:3.5cm;
 
-            width:5cm;
+    height:5cm;
 
-            height:3.5cm;
+    background:white;
 
-            position:relative;
+    overflow:hidden;
 
-            overflow:hidden;
+    display:flex;
 
-            background:white;
-        }
+    justify-content:center;
 
-        /* LABEL */
+    align-items:center;
 
-        .label-card{
+    position:relative;
+}
 
-            width:5cm;
+/* LABEL */
 
-            height:3.5cm;
+.label-card{
 
-            background:white;
+    width:3.5cm;
 
-            border:1.5px solid #bdbdbd;
+    height:5cm;
 
-            border-radius:6px;
+    background:white;
 
-            padding:2px;
+    border:1px solid #444;
 
-            overflow:hidden;
+    border-radius:5px;
 
-            position:absolute;
+    overflow:hidden;
 
-            top:0;
+    transition:0.3s;
+}
 
-            left:0;
+/* ROTATED PERFECT FIT */
 
-            transition:0.3s;
-        }
+.rotated{
 
-        /* PERFECT ROTATION */
+    width:5cm;
 
-        .rotated{
+    height:3.5cm;
 
-            transform:rotate(90deg);
+    transform:rotate(90deg);
 
-            transform-origin:center center;
+    transform-origin:center center;
 
-            width:3.5cm;
+    position:absolute;
 
-            height:5cm;
+    top:0.75cm;
 
-            top:-0.75cm;
+    left:-0.75cm;
+}
 
-            left:0.75cm;
-        }
+/* TABLE */
 
-        table{
+table{
 
-            width:100%;
+    width:100%;
 
-            height:100%;
+    height:100%;
 
-            border-collapse:collapse;
+    border-collapse:collapse;
 
-            table-layout:fixed;
-        }
+    table-layout:fixed;
+}
 
-        td{
+/* PERFECT ROW FIT */
 
-            border:1px solid #444;
+tr{
 
-            padding:1px 3px;
+    height:calc(100% / 7);
+}
 
-            font-size:7px;
+td{
 
-            color:#111;
+    border:1px solid #444;
 
-            vertical-align:middle;
-        }
+    padding:0 2px;
 
-        /* LEFT COLUMN */
+    font-size:6px;
 
-        .label{
+    color:#111;
 
-            width:42%;
+    vertical-align:middle;
 
-            font-weight:500;
+    line-height:1;
 
-            text-transform:capitalize;
-        }
+    overflow:hidden;
+}
 
-        /* RIGHT COLUMN */
+/* LEFT COLUMN */
 
-        .value{
-            font-weight:700;
-        }
+.label{
 
-        /* INPUT */
+    width:42%;
 
-        input{
+    font-weight:500;
 
-            width:100%;
+    text-transform:capitalize;
+}
 
-            border:none;
+/* RIGHT COLUMN */
 
-            outline:none;
+.value{
 
-            background:transparent;
+    font-weight:700;
+}
 
-            font-size:7px;
+/* INPUT */
 
-            font-weight:700;
+input{
 
-            color:#111;
-        }
+    width:100%;
 
-        /* FORMATS */
+    border:none;
 
-        .title-case{
-            text-transform:capitalize;
-        }
+    outline:none;
 
-        .item-name{
-            text-transform:none;
-        }
+    background:transparent;
 
-        /* PRINT */
+    font-size:6px;
 
-        @media print{
+    font-weight:700;
 
-            body{
+    color:#111;
 
-                margin:0;
+    line-height:1;
+}
 
-                padding:0;
+/* FORMATS */
 
-                background:white;
-            }
+.title-case{
+    text-transform:capitalize;
+}
 
-            .button-group{
-                display:none;
-            }
+.item-name{
+    text-transform:none;
+}
 
-            .print-area{
+/* PRINT ONLY LABEL */
 
-                width:5cm;
+@media print{
 
-                height:3.5cm;
+    html,
+    body{
 
-                overflow:hidden;
-            }
+        width:3.5cm;
 
-            @page{
+        height:5cm;
 
-                size:5cm 3.5cm;
+        margin:0 !important;
 
-                margin:0;
-            }
-        }
+        padding:0 !important;
 
-    </style>
+        overflow:hidden;
+
+        background:white;
+    }
+
+    body *{
+
+        visibility:hidden;
+    }
+
+    .print-area,
+    .print-area *{
+
+        visibility:visible;
+    }
+
+    .button-group{
+
+        display:none !important;
+    }
+
+    .print-area{
+
+        position:absolute;
+
+        top:0;
+
+        left:0;
+
+        width:3.5cm;
+
+        height:5cm;
+
+        overflow:hidden;
+
+        margin:0;
+
+        padding:0;
+    }
+
+    .label-card{
+
+        width:100%;
+
+        height:100%;
+    }
+
+    @page{
+
+        size:3.5cm 5cm;
+
+        margin:0;
+    }
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <!-- BUTTONS -->
+<!-- BUTTONS -->
 
-    <div class="button-group">
+<div class="button-group">
 
-        <button onclick="rotateAndPrint()">
-            Rotate + Print
-        </button>
+    <button onclick="rotateAndPrint()">
+        Rotate + Print
+    </button>
 
-        <button onclick="normalView()">
-            Normal View
-        </button>
+    <button onclick="normalView()">
+        Normal View
+    </button>
 
-    </div>
+</div>
 
-    <!-- PRINT AREA -->
+<!-- PRINT AREA -->
 
-    <div class="print-area">
+<div class="print-area">
 
-        <!-- LABEL -->
+    <div class="label-card" id="label">
 
-        <div class="label-card" id="label">
+        <table>
 
-            <table>
+            <tr>
 
-                <!-- ITEM ID -->
+                <td class="label">
+                    Item Id
+                </td>
 
-                <tr>
+                <td class="value">
 
-                    <td class="label">
-                        Item Id
-                    </td>
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="46"
+                    >
 
-                    <td class="value">
+                </td>
 
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="46"
-                        >
+            </tr>
 
-                    </td>
+            <tr>
 
-                </tr>
+                <td class="label">
+                    Item Name
+                </td>
 
-                <!-- ITEM NAME -->
+                <td class="value">
 
-                <tr>
+                    <input 
+                        type="text"
+                        class="item-name"
+                        placeholder="9 PC CUT"
+                    >
 
-                    <td class="label">
-                        Item Name
-                    </td>
+                </td>
 
-                    <td class="value">
+            </tr>
 
-                        <input 
-                            type="text"
-                            class="item-name"
-                            placeholder="9 PC CUT"
-                        >
+            <tr>
 
-                    </td>
+                <td class="label">
+                    Date
+                </td>
 
-                </tr>
+                <td class="value">
 
-                <!-- DATE -->
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="6 May"
+                    >
 
-                <tr>
+                </td>
 
-                    <td class="label">
-                        Date
-                    </td>
+            </tr>
 
-                    <td class="value">
+            <tr>
 
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="6 May"
-                        >
+                <td class="label">
+                    Item Group
+                </td>
 
-                    </td>
+                <td class="value">
 
-                </tr>
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="Non-Veg Marination"
+                    >
 
-                <!-- ITEM GROUP -->
+                </td>
 
-                <tr>
+            </tr>
 
-                    <td class="label">
-                        Item Group
-                    </td>
+            <tr>
 
-                    <td class="value">
+                <td class="label">
+                    Make Time
+                </td>
 
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="Non-Veg Marination"
-                        >
+                <td class="value">
 
-                    </td>
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="8May 17:40"
+                    >
 
-                </tr>
+                </td>
 
-                <!-- MAKE TIME -->
+            </tr>
 
-                <tr>
+            <tr>
 
-                    <td class="label">
-                        Make Time
-                    </td>
+                <td class="label">
+                    Ready Time
+                </td>
 
-                    <td class="value">
+                <td class="value">
 
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="8May 17:40"
-                        >
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="9May 17:40"
+                    >
 
-                    </td>
+                </td>
 
-                </tr>
+            </tr>
 
-                <!-- READY TIME -->
+            <tr>
 
-                <tr>
+                <td class="label">
+                    Discard Time
+                </td>
 
-                    <td class="label">
-                        Ready Time
-                    </td>
+                <td class="value">
 
-                    <td class="value">
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="10May 17:40"
+                    >
 
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="9May 17:40"
-                        >
+                </td>
 
-                    </td>
+            </tr>
 
-                </tr>
-
-                <!-- DISCARD TIME -->
-
-                <tr>
-
-                    <td class="label">
-                        Discard Time
-                    </td>
-
-                    <td class="value">
-
-                        <input 
-                            type="text"
-                            class="title-case"
-                            placeholder="10May 17:40"
-                        >
-
-                    </td>
-
-                </tr>
-
-            </table>
-
-        </div>
+        </table>
 
     </div>
 
-    <!-- SCRIPT -->
+</div>
 
-    <script>
+<script>
 
-        const label = document.getElementById("label");
+const label = document.getElementById("label");
 
-        function rotateAndPrint(){
+function rotateAndPrint(){
 
-            label.classList.add("rotated");
+    label.classList.add("rotated");
 
-            setTimeout(() => {
+    setTimeout(() => {
 
-                window.print();
+        window.print();
 
-            }, 300);
-        }
+    }, 300);
+}
 
-        function normalView(){
+function normalView(){
 
-            label.classList.remove("rotated");
-        }
+    label.classList.remove("rotated");
+}
 
-    </script>
+</script>
 
 </body>
 
