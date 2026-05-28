@@ -30,14 +30,25 @@
 
             flex-direction:column;
 
-            gap:20px;
+            gap:15px;
 
             padding:20px;
         }
 
-        /* PRINT BUTTON */
+        /* BUTTON AREA */
 
-        .print-btn{
+        .button-group{
+
+            display:flex;
+
+            gap:10px;
+
+            flex-wrap:wrap;
+
+            justify-content:center;
+        }
+
+        button{
 
             background:#111;
 
@@ -56,14 +67,13 @@
             font-weight:600;
         }
 
+        button:hover{
+            opacity:0.9;
+        }
+
         /* LABEL */
 
         .label-card{
-
-            /* LANDSCAPE SIZE */
-            width:5cm;
-
-            height:3.5cm;
 
             background:white;
 
@@ -74,6 +84,24 @@
             padding:2px;
 
             overflow:hidden;
+        }
+
+        /* LANDSCAPE */
+
+        .label-card.landscape{
+
+            width:5cm;
+
+            height:3.5cm;
+        }
+
+        /* PORTRAIT */
+
+        .label-card.portrait{
+
+            width:3.5cm;
+
+            height:5cm;
         }
 
         table{
@@ -136,7 +164,7 @@
             color:#111;
         }
 
-        /* TEXT FORMATS */
+        /* FORMATS */
 
         .title-case{
             text-transform:capitalize;
@@ -146,50 +174,36 @@
             text-transform:none;
         }
 
-        /* IMPORTANT PRINT FIX */
+        /* PRINT */
 
         @media print{
 
-            html,
             body{
 
-                width:5cm;
-                height:3.5cm;
-
-                margin:0 !important;
-                padding:0 !important;
-
-                overflow:hidden;
-
                 background:white;
+
+                margin:0;
+
+                padding:0;
             }
 
-            .print-btn{
+            .button-group{
+
                 display:none;
             }
 
             .label-card{
 
-                width:5cm !important;
-
-                height:3.5cm !important;
-
                 margin:0;
-
-                border:1.5px solid #bdbdbd;
 
                 page-break-after:avoid;
             }
 
             @page{
 
-                /* IMPORTANT */
-                size:5cm 3.5cm;
+                size:auto;
 
                 margin:0;
-
-                /* FORCE LANDSCAPE */
-                page-orientation:rotate-left;
             }
         }
 
@@ -198,15 +212,31 @@
 
 <body>
 
-    <button class="print-btn" onclick="window.print()">
-        Print Label
-    </button>
+    <!-- BUTTONS -->
+
+    <div class="button-group">
+
+        <button onclick="setLandscape()">
+            Landscape
+        </button>
+
+        <button onclick="setPortrait()">
+            Portrait
+        </button>
+
+        <button onclick="window.print()">
+            Print Label
+        </button>
+
+    </div>
 
     <!-- LABEL -->
 
-    <div class="label-card">
+    <div class="label-card landscape" id="label">
 
         <table>
+
+            <!-- ITEM ID -->
 
             <tr>
 
@@ -226,6 +256,8 @@
 
             </tr>
 
+            <!-- ITEM NAME -->
+
             <tr>
 
                 <td class="label">
@@ -243,6 +275,8 @@
                 </td>
 
             </tr>
+
+            <!-- DATE -->
 
             <tr>
 
@@ -262,6 +296,8 @@
 
             </tr>
 
+            <!-- ITEM GROUP -->
+
             <tr>
 
                 <td class="label">
@@ -279,6 +315,8 @@
                 </td>
 
             </tr>
+
+            <!-- MAKE TIME -->
 
             <tr>
 
@@ -298,6 +336,8 @@
 
             </tr>
 
+            <!-- READY TIME -->
+
             <tr>
 
                 <td class="label">
@@ -315,6 +355,8 @@
                 </td>
 
             </tr>
+
+            <!-- DISCARD TIME -->
 
             <tr>
 
@@ -337,6 +379,28 @@
         </table>
 
     </div>
+
+    <!-- SCRIPT -->
+
+    <script>
+
+        const label = document.getElementById("label");
+
+        function setLandscape(){
+
+            label.classList.remove("portrait");
+
+            label.classList.add("landscape");
+        }
+
+        function setPortrait(){
+
+            label.classList.remove("landscape");
+
+            label.classList.add("portrait");
+        }
+
+    </script>
 
 </body>
 
