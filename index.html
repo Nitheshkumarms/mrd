@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Printable Food Label</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            background: #ececec;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            gap: 20px;
+
+            padding: 20px;
+        }
+
+        /* PRINT BUTTON */
+
+        .print-btn {
+
+            background: #111;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .print-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* LABEL */
+
+        .label-card {
+
+            width: 320px;
+
+            background: #fff;
+
+            border: 2px solid #bdbdbd;
+
+            border-radius: 10px;
+
+            padding: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+
+            border: 1px solid #444;
+
+            padding: 7px 8px;
+
+            font-size: 13px;
+
+            color: #111;
+        }
+
+        /* LEFT COLUMN */
+
+        .label {
+
+            width: 42%;
+
+            text-transform: capitalize;
+
+            font-weight: 500;
+        }
+
+        /* RIGHT COLUMN */
+
+        .value {
+            font-weight: 700;
+        }
+
+        /* INPUTS */
+
+        input {
+
+            width: 100%;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #111;
+        }
+
+        /* FORMATS */
+
+        .title-case {
+            text-transform: capitalize;
+        }
+
+        .item-name {
+            text-transform: none;
+        }
+
+        /* PRINT SETTINGS */
+
+        @media print {
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            /* ONLY PRINT LABEL */
+
+            .print-btn {
+                display: none;
+            }
+
+            .label-card {
+
+                width: 80mm;
+
+                border: 2px solid #bdbdbd;
+
+                margin: 0;
+
+                padding: 6px;
+            }
+
+            @page {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PRINT BUTTON -->
+
+    <button class="print-btn" onclick="window.print()">
+        Print Label
+    </button>
+
+    <!-- LABEL -->
+
+    <div class="label-card">
+
+        <table>
+
+            <!-- ITEM ID -->
+
+            <tr>
+
+                <td class="label">
+                    Item Id
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="46"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- ITEM NAME -->
+
+            <tr>
+
+                <td class="label">
+                    Item Name
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="item-name"
+                        placeholder="9 PC CUT"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- DATE -->
+
+            <tr>
+
+                <td class="label">
+                    Date
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="6 May"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- ITEM GROUP -->
+
+            <tr>
+
+                <td class="label">
+                    Item Group
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="Non-Veg Marination"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- MAKE TIME -->
+
+            <tr>
+
+                <td class="label">
+                    Make Time
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="8May 17:40"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- READY TIME -->
+
+            <tr>
+
+                <td class="label">
+                    Ready Time
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="9May 17:40"
+                    >
+
+                </td>
+
+            </tr>
+
+            <!-- DISCARD TIME -->
+
+            <tr>
+
+                <td class="label">
+                    Discard Time
+                </td>
+
+                <td class="value">
+
+                    <input 
+                        type="text"
+                        class="title-case"
+                        placeholder="10May 17:40"
+                    >
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>
