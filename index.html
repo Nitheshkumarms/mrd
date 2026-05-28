@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>5cm x 3.5cm Food Label</title>
+    <title>Thermal Label Print</title>
 
     <style>
 
@@ -20,6 +20,8 @@
 
             background:#ececec;
 
+            min-height:100vh;
+
             display:flex;
 
             justify-content:center;
@@ -28,9 +30,9 @@
 
             flex-direction:column;
 
-            min-height:100vh;
-
             gap:20px;
+
+            padding:20px;
         }
 
         /* PRINT BUTTON */
@@ -54,17 +56,18 @@
             font-weight:600;
         }
 
-        /* LABEL EXACT SIZE */
+        /* LABEL */
 
         .label-card{
 
+            /* LANDSCAPE SIZE */
             width:5cm;
 
             height:3.5cm;
 
             background:white;
 
-            border:1.8px solid #bdbdbd;
+            border:1.5px solid #bdbdbd;
 
             border-radius:6px;
 
@@ -74,9 +77,13 @@
         }
 
         table{
+
             width:100%;
+
             height:100%;
+
             border-collapse:collapse;
+
             table-layout:fixed;
         }
 
@@ -93,7 +100,7 @@
             vertical-align:middle;
         }
 
-        /* LEFT SIDE */
+        /* LEFT COLUMN */
 
         .label{
 
@@ -104,13 +111,13 @@
             text-transform:capitalize;
         }
 
-        /* RIGHT SIDE */
+        /* RIGHT COLUMN */
 
         .value{
             font-weight:700;
         }
 
-        /* INPUTS */
+        /* INPUT */
 
         input{
 
@@ -124,12 +131,12 @@
 
             font-size:7px;
 
-            color:#111;
-
             font-weight:700;
+
+            color:#111;
         }
 
-        /* FORMATS */
+        /* TEXT FORMATS */
 
         .title-case{
             text-transform:capitalize;
@@ -139,11 +146,21 @@
             text-transform:none;
         }
 
-        /* PRINT SETTINGS */
+        /* IMPORTANT PRINT FIX */
 
         @media print{
 
+            html,
             body{
+
+                width:5cm;
+                height:3.5cm;
+
+                margin:0 !important;
+                padding:0 !important;
+
+                overflow:hidden;
+
                 background:white;
             }
 
@@ -153,22 +170,26 @@
 
             .label-card{
 
-                width:5cm;
+                width:5cm !important;
 
-                height:3.5cm;
+                height:3.5cm !important;
 
                 margin:0;
 
-                border:1.8px solid #bdbdbd;
+                border:1.5px solid #bdbdbd;
 
-                border-radius:6px;
+                page-break-after:avoid;
             }
 
             @page{
 
+                /* IMPORTANT */
                 size:5cm 3.5cm;
 
                 margin:0;
+
+                /* FORCE LANDSCAPE */
+                page-orientation:rotate-left;
             }
         }
 
@@ -176,8 +197,6 @@
 </head>
 
 <body>
-
-    <!-- PRINT BUTTON -->
 
     <button class="print-btn" onclick="window.print()">
         Print Label
