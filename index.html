@@ -105,13 +105,19 @@
             padding:2px;
 
             overflow:hidden;
+
+            transition:0.3s;
         }
 
-        /* ROTATED MODE */
+        /* ROTATED PERFECT FIT */
 
         .rotated{
 
-            transform:rotate(90deg);
+            width:3.5cm !important;
+
+            height:5cm !important;
+
+            transform:rotate(90deg) scale(0.70);
 
             transform-origin:center center;
         }
@@ -214,9 +220,7 @@
 
             .label-card{
 
-                width:5cm;
-
-                height:3.5cm;
+                border:1.5px solid #bdbdbd;
             }
 
             @page{
@@ -236,16 +240,12 @@
 
     <div class="button-group">
 
-        <button onclick="rotateLabel()">
-            Rotate 90°
+        <button onclick="rotateAndPrint()">
+            Rotate + Print
         </button>
 
-        <button onclick="normalLabel()">
-            Normal
-        </button>
-
-        <button onclick="window.print()">
-            Print Label
+        <button onclick="normalView()">
+            Normal View
         </button>
 
     </div>
@@ -256,7 +256,7 @@
 
         <!-- LABEL -->
 
-        <div class="label-card rotated" id="label">
+        <div class="label-card" id="label">
 
             <table>
 
@@ -398,12 +398,18 @@
 
         const label = document.getElementById("label");
 
-        function rotateLabel(){
+        function rotateAndPrint(){
 
             label.classList.add("rotated");
+
+            setTimeout(() => {
+
+                window.print();
+
+            }, 300);
         }
 
-        function normalLabel(){
+        function normalView(){
 
             label.classList.remove("rotated");
         }
